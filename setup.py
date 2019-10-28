@@ -11,12 +11,7 @@ setuptools.setup(
     description="FastEMC is a method for dimensionality reduction.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/pypa/sampleproject",
+    url="https://github.com/rowland-208/fastemc",
     packages=setuptools.find_packages(),
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-    ],
     python_requires='>=3.6',
 )
