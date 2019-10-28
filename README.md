@@ -1,5 +1,5 @@
 # FastEMC
-## Fast Exponential Monte Carlo
+### Fast Exponential Monte Carlo
 
 FastEMC is a modified version of exponential Monte Carlo.
 FastEMC takes class features and labels as input,
