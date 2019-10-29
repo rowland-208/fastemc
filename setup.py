@@ -13,5 +13,11 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/rowland-208/fastemc",
     packages=setuptools.find_packages(),
-    python_requires='>=3.6',
+    python_requires='>=2.7',
+    install_requires=[
+        'numpy',
+        'pandas',
+        'scikit-learn',
+        'tqdm'
+    ]
 )
