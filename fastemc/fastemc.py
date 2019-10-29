@@ -20,11 +20,6 @@ def score(features, labels, setting='fast', cv=5):
         return np.mean(cross_val_score(clf, features[:,choice], labels, cv=5))
     return wrapper
 
-def classify(features, training_choice, training_labels):
-    clf = LogisticRegression(solver='lbfgs', multi_class='multinomial', max_iter=100)
-    clf.fit(training_choice, training_labels)
-    return clf.predict(features)
-
 def default_logger(*_):
     pass
 
@@ -71,10 +66,9 @@ def run(
     global_optimum_score=np.array([local_optimum_score_slow for _ in range(num_clusters)])
 
     # outer Monte Carlo loop
-    print('Running fastemc...')
     for _ in tqdm(range(num_mc_steps)):
         # inner "fast" Monte Carlo loop
-        for _ in tqdm(range(num_fast_mc_steps)):
+        for _ in range(num_fast_mc_steps):
             num_to_swap = min(np.random.randint(2, max_swaps_per_step+1), num_features)
             proposed_insertion = np.random.choice(
                 np.delete(np.arange(num_features), current_choice),
