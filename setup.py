@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="fastemc",
-    version="0.0.1",
+    version="0.0.2",
     author="James Rowland",
     author_email="rowland.208@gmail.com",
     description="FastEMC is a method for dimensionality reduction.",
