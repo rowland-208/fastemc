@@ -32,7 +32,8 @@ def run(
         num_fast_mc_steps=20,
         log_noise=0.03,
         random_seed=0,
-        logger=default_logger
+        logger=default_logger,
+        restart=False
 ):
     """
     Given input set of features and labels
@@ -64,6 +65,20 @@ def run(
 
     global_optimum_choice=np.array([current_choice for _ in range(num_clusters)])
     global_optimum_score=np.array([local_optimum_score_slow for _ in range(num_clusters)])
+
+    
+    if restart:
+        global_optimum_score, global_optimum_choice = restart
+
+        current_choice=global_optimum_choice[np.argmax(global_optimum_score)]
+        current_score=score_fast(current_choice)
+
+        proposed_choice=current_choice
+        proposed_score=current_score
+
+        local_optimum_choice=current_choice
+        local_optimum_score=current_score
+        local_optimum_score_slow=score_slow(local_optimum_choice)
 
     # outer Monte Carlo loop
     for _ in tqdm(range(num_mc_steps)):

@@ -46,6 +46,10 @@ parser.add_argument(
     '--log_noise', '-T', type=float, default=0.03,
     help='number of features in each cluster used for classification'
 )
+parser.add_argument(
+    '--restart', action='store_true',
+    help='grab features and scores from previous output files'
+)
 
 args = parser.parse_args()
 
@@ -88,6 +92,14 @@ def save_results(global_optimum_score, global_optimum_choice):
     )
     results.to_csv(args.results)
 
+if args.restart:
+    df = pd.read_csv(args.results)
+    global_optimum_score = df['score'].values
+    global_optimum_choice = df.iloc[:, 2:].values
+    restart = global_optimum_score, global_optimum_choice
+else:
+    restart = False
+
 _ = fastemc.run(
     features.values, labels.values,
     num_mc_steps=args.num_mc_steps,
@@ -96,5 +108,6 @@ _ = fastemc.run(
     max_swaps_per_step=args.max_swaps_per_step,
     num_fast_mc_steps=args.num_fast_mc_steps,
     log_noise=args.log_noise,
-    logger=save_results
+    logger=save_results,
+    restart=restart
 )
